@@ -13,3 +13,6 @@ ACCOUNT
         |------< TRANSACTION_DETAILS (Transaction_ID, Transaction_Type, Amount, Transaction_Date, Account_No)
 
 EMPLOYEE (Employee_ID, Name, Position, Salary, Branch)
+
+
+
