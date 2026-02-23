@@ -1,0 +1,82 @@
+-- Drop if already exists (to avoid error)
+DROP DATABASE IF EXISTS BankingMS;
+CREATE DATABASE BankingMS;
+USE BankingMS;
+
+-- 1️⃣ CUSTOMER TABLE
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    phone VARCHAR(15),
+    address VARCHAR(100),
+    email VARCHAR(50)
+);
+
+-- 2️⃣ ACCOUNT TABLE
+CREATE TABLE Account (
+    account_no INT PRIMARY KEY,
+    account_type VARCHAR(20),
+    balance DECIMAL(10,2),
+    open_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+        ON DELETE CASCADE
+);
+
+-- 3️⃣ EMPLOYEE TABLE
+CREATE TABLE Employee (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    position VARCHAR(30),
+    salary DECIMAL(10,2),
+    branch VARCHAR(50)
+);
+
+-- 4️⃣ LOAN TABLE
+CREATE TABLE Loan (
+    loan_id INT PRIMARY KEY,
+    loan_type VARCHAR(30),
+    loan_amount DECIMAL(10,2),
+    loan_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+        ON DELETE CASCADE
+);
+
+-- 5️⃣ TRANSACTION TABLE (Renamed to avoid keyword issue)
+CREATE TABLE Transactions (
+    transaction_id INT PRIMARY KEY,
+    transaction_type VARCHAR(20),
+    amount DECIMAL(10,2),
+    transaction_date DATE,
+    account_no INT,
+    FOREIGN KEY (account_no) REFERENCES Account(account_no)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Customer VALUES
+(1, 'Rahul Sharma', '9876543210', 'Delhi', 'rahul@gmail.com'),
+(2, 'Amit Verma', '9123456780', 'Lucknow', 'amit@gmail.com');
+
+INSERT INTO Account VALUES
+(101, 'Savings', 50000.00, '2025-01-10', 1),
+(102, 'Current', 75000.00, '2025-02-15', 2);
+
+INSERT INTO Employee VALUES
+(201, 'Neha Singh', 'Manager', 60000.00, 'Delhi Branch'),
+(202, 'Rohit Kumar', 'Cashier', 30000.00, 'Lucknow Branch');
+
+INSERT INTO Loan VALUES
+(301, 'Home Loan', 500000.00, '2025-03-01', 1);
+
+INSERT INTO Transactions VALUES
+(401, 'Deposit', 10000.00, '2025-03-10', 101),
+(402, 'Withdraw', 5000.00, '2025-03-15', 102);
+
+SELECT * FROM Customer;
+
+SELECT C.name, A.account_no, A.balance
+FROM Customer C
+JOIN Account A ON C.customer_id = A.customer_id;
+
+SELECT * FROM Transactions;
