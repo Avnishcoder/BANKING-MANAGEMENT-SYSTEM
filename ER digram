@@ -1,0 +1,15 @@
+CUSTOMER (Customer_ID, Name, Phone, Address, Email)
+        |
+        | 1
+        |
+        |------< ACCOUNT (Account_No, Account_Type, Balance, Open_Date, Customer_ID)
+        |
+        |------< LOAN (Loan_ID, Loan_Type, Loan_Amount, Loan_Date, Customer_ID)
+
+ACCOUNT
+        |
+        | 1
+        |
+        |------< TRANSACTION_DETAILS (Transaction_ID, Transaction_Type, Amount, Transaction_Date, Account_No)
+
+EMPLOYEE (Employee_ID, Name, Position, Salary, Branch)
